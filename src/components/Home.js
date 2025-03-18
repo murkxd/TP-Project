@@ -4,6 +4,7 @@ import axios from 'axios';
 function Home() {
   const [featuredListings, setFeaturedListings] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const fetchFeaturedListings = async () => {
@@ -16,6 +17,8 @@ function Home() {
     };
 
     fetchFeaturedListings();
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
   }, []);
 
   const handleSearch = async (event) => {
@@ -30,8 +33,29 @@ function Home() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.location.href = '/';
+  };
+
   return (
     <div>
+      <header>
+        <div className="auth-buttons">
+          {isLoggedIn ? (
+            <>
+              <button onClick={() => window.location.href = '/profile'}>Profile</button>
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => window.location.href = '/login'}>Login</button>
+              <button onClick={() => window.location.href = '/register'}>Register</button>
+            </>
+          )}
+        </div>
+      </header>
       <form onSubmit={handleSearch}>
         <input
           type="text"

@@ -9,13 +9,13 @@ const jwtSecret = process.env.JWT_SECRET;
 
 // Register route
 router.post('/register', (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body; // Added email
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       return res.status(500).json({ error: 'Error hashing password' });
     }
-    const query = 'INSERT INTO users (username, password) VALUES (?, ?)';
-    db.query(query, [username, hash], (err, result) => {
+    const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)'; // Added email
+    db.query(query, [username, email, hash], (err, result) => {
       if (err) {
         return res.status(500).json({ error: 'Error registering user' });
       }
@@ -26,8 +26,8 @@ router.post('/register', (req, res) => {
 
 // Login route
 router.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const query = 'SELECT * FROM users WHERE username = ?';
+  const { username, password } = req.body; // Changed from email to username
+  const query = 'SELECT * FROM users WHERE username = ?'; // Changed from email to username
   db.query(query, [username], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Error fetching user' });

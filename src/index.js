@@ -10,10 +10,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <nav>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-      </nav>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />

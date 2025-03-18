@@ -20,28 +20,13 @@ a:hover {
 header {
   background-color: #007bff;
   color: white;
-  padding: 1rem 0;
+  padding: 0; /* Removed padding */
   text-align: center;
 }
 
 header h1 {
   margin: 0;
-}
-
-/* Navigation Styles */
-nav {
-  display: flex;
-  justify-content: center;
-  background-color: #0056b3;
-}
-
-nav a {
-  padding: 1rem;
-  color: white;
-}
-
-nav a:hover {
-  background-color: #003f7f;
+  padding: 1rem 0; /* Added padding to h1 */
 }
 
 /* Main Content Styles */
@@ -92,4 +77,24 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+.auth-buttons {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.auth-buttons button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-buttons button:hover {
+  background-color: #0056b3;
 }
