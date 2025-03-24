@@ -17,38 +17,28 @@ function Register() {
   };
 
   return (
-    <div style={{ paddingTop: '7rem' }}>
+    <div className="auth-container">
       <button 
         type="button" 
-        onClick={() => window.location.href = '/'} 
-        style={{ 
-          position: 'absolute', 
-          top: '1rem', 
-          left: '1rem', 
-          padding: '0.5rem 1rem', 
-          backgroundColor: '#007bff', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '5px', 
-          cursor: 'pointer' 
-        }}
+        onClick={() => window.location.href = '/' } 
+        className="back-button"
       >
         Back
       </button>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
           <label>Username:</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="submit-button">Register</button>
       </form>
     </div>
   );

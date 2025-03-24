@@ -51,7 +51,6 @@ function Home() {
           ) : (
             <>
               <button onClick={() => window.location.href = '/login'}>Login</button>
-              <button onClick={() => window.location.href = '/register'}>Register</button>
             </>
           )}
         </div>

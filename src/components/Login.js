@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles.css'; // Import the CSS file
 
 function Login() {
-  const [username, setUsername] = useState(''); // Changed from email to username
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
@@ -17,35 +18,35 @@ function Login() {
   };
 
   return (
-    <div style={{ paddingTop: '7rem' }}>
+    <div className="auth-container">
       <button 
         type="button" 
         onClick={() => window.location.href = '/'} 
-        style={{ 
-          position: 'absolute', 
-          top: '1rem', 
-          left: '1rem', 
-          padding: '0.5rem 1rem', 
-          backgroundColor: '#007bff', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '5px', 
-          cursor: 'pointer' 
-        }}
+        className="back-button"
       >
         Back
       </button>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
           <label>Username:</label> {/* Changed from Email to Username */}
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className="submit-button">Login</button>
       </form>
+      <div className="auth-footer">
+        <span>Don't have an account? </span>
+        <button 
+          type="button" 
+          onClick={() => window.location.href = '/register'} 
+          className="register-button"
+        >
+          Register
+        </button>
+      </div>
     </div>
   );
 }

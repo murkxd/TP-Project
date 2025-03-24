@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Welcome to Autobazar</h1>
+        <h1>Smart Bazar</h1>
       </header>
       <main>
         <Routes>
