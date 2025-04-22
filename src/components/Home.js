@@ -107,7 +107,6 @@ function Home() {
 
   return (
     <>
-      {/* Globální header */}
       <header className="global-header">
         <h1>Smart Bazar</h1>
         <div className="auth-buttons right">
@@ -127,7 +126,6 @@ function Home() {
       <div className="homepage">
         <h2 className="homepage-title">Inzeráty</h2>
 
-        {/* Vyhledávání a filtry */}
         <div className="filters-container">
           <input
             type="text"
@@ -213,7 +211,6 @@ function Home() {
           </select>
         </div>
 
-        {/* Grid inzerátů */}
         <div className="listing-grid">
           {listings.map(listing => (
             <div

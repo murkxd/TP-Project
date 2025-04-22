@@ -9,6 +9,8 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+select * from users;
+
 CREATE TABLE cars (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -29,6 +31,12 @@ CREATE TABLE cars (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+select * from cars;
+
+ALTER TABLE cars ADD COLUMN price INT NOT NULL;
+ALTER TABLE cars ADD COLUMN images TEXT;
+ALTER TABLE cars ADD COLUMN contact_phone VARCHAR(30);
+
 CREATE TABLE features (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL
@@ -42,52 +50,59 @@ CREATE TABLE car_features (
     FOREIGN KEY (feature_id) REFERENCES features(id) ON DELETE CASCADE
 );
 
-INSERT INTO features (name) VALUES 
--- Safety & Driving Assistance
+select * from car_features;
+
+DELETE FROM car_features;
+DELETE FROM cars;
+
+DELETE FROM features;
+
+INSERT INTO features (name) VALUES
+-- Bezpečnost & asistenty
 ('ABS, ESP, ASR'),
-('Lane Assist'),
-('Hill Start Assist'),
-('Blind Spot Assist'),
-('Auto Dimming Mirrors'),
-('SOS Emergency System'),
+('Asistent jízdy v pruhu'),
+('Asistent rozjezdu do kopce'),
+('Hlídání mrtvého úhlu'),
+('Samočinné stmívání zrcátek'),
+('Tísňový systém SOS'),
 ('ISOFIX'),
-('Automatic Parking Brake'),
-('Cruise Control'),
-('Adaptive Cruise Control'),
-('Automatic High Beams'),
-('Parking Sensors'),
-('Rear Parking Camera'),
-('360-Degree Camera'),
+('Automatická parkovací brzda'),
+('Tempomat'),
+('Adaptivní tempomat'),
+('Automatické dálkové světlomety'),
+('Parkovací senzory'),
+('Zadní parkovací kamera'),
+('360° kamera'),
 
--- Comfort & Convenience
-('A/C'),
-('Automatic Climate Control'),
-('Heated Seats'),
-('Ventilated Seats'),
-('Electric Seats'),
-('Massage Seats'),
-('Heated Steering Wheel'),
-('Auxiliary Heating'),
-('Electric Tailgate'),
-('Keyless Entry & Start'),
-('Rain Sensor'),
-('Ambient Lighting'),
-('Split Folding Rear Seats'),
-('Heads-up Display'),
+-- Pohodlí
+('Klimatizace'),
+('Dvouzónová klimatizace'),
+('Vyhřívaná sedadla'),
+('Ventilovaná sedadla'),
+('Elektrická sedadla'),
+('Masážní sedadla'),
+('Vyhřívaný volant'),
+('Nezávislé topení'),
+('Elektrické víko kufru'),
+('Bezdotykové odemykání/start'),
+('Dešťový senzor'),
+('Ambientní osvětlení'),
+('Dělená zadní sedadla'),
+('Head-up displej'),
 
--- Tech & Infotainment
-('Smartphone Integration'),
-('Premium Sound System'),
-('Rear Entertainment System'),
-('Navigation System'),
+-- Technika a zábava
+('Integrace chytrého telefonu'),
+('Prémiový audiosystém'),
+('Zadní infotainment systém'),
+('Navigace'),
 ('Bluetooth'),
-('Wireless Charging'),
-('DAB Radio'),
-('USB Ports'),
+('Bezdrátové nabíjení'),
+('DAB rádio'),
+('USB porty'),
 
--- Exterior & Utility
-('Sunroof'),
-('Panoramic Roof'),
-('Fog Lights'),
-('Roof Rails'),
-('Towing Package');
+-- Exteriér & užitek
+('Střešní okno'),
+('Panoramatická střecha'),
+('Mlhovky'),
+('Střešní nosiče'),
+('Tažné zařízení');

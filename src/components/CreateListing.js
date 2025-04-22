@@ -104,7 +104,7 @@ function CreateListing() {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Inzerát byl úspěšně vytvořen!');
+      console.log('Inzerát vytvořen');
       window.location.href = '/profile';
     } catch (error) {
       console.error('Chyba při vytváření inzerátu', error);

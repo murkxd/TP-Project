@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles.css'; // Import the CSS file
+import '../styles.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -9,12 +9,12 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3030/api/auth/login', { username, password }); // Updated base URL
+      const response = await axios.post('http://localhost:3030/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
       window.location.href = '/';
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.error); // Zobrazí chybu ze serveru
+        alert(error.response.data.error);
       } else {
         console.error('Login failed', error);
         alert('Login failed. Please try again.');
@@ -39,14 +39,14 @@ function Login() {
   
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label>Username:</label>
+            <label>Uživatelské jméno:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
           <div className="form-group">
-            <label>Password:</label>
+            <label>Heslo:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <button type="submit" className="submit-button">Login</button>
+          <button type="submit" className="submit-button">Přihlásit</button>
   
           <div className="auth-footer-inline">
             <span>Nemáš účet?</span>

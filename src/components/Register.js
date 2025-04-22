@@ -9,7 +9,7 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:3030/api/auth/register', { username, email, password }); // Ensure the correct URL
+      await axios.post('http://localhost:3030/api/auth/register', { username, email, password });
       window.location.href = '/';
     } catch (error) {
       console.error('Registration failed', error);
@@ -33,18 +33,18 @@ function Register() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label>Username:</label>
+            <label>Uživatelské jméno:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
           <div className="form-group">
-            <label>Email:</label>
+            <label>Mail:</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="form-group">
-            <label>Password:</label>
+            <label>Heslo:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <button type="submit" className="submit-button">Register</button>
+          <button type="submit" className="submit-button">Registrovat</button>
         </form>
       </div>
     </>

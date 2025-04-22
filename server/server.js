@@ -2,24 +2,21 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const WebSocket = require('ws');
-const db = require('./db'); // Import DB modulu
+const db = require('./db');
 
-// Načti .env proměnné
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3030;
 
-// Middlewary
 app.use(cors({
-  origin: 'http://localhost:3000', // Povol frontend
+  origin: 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
-// Preflight OPTIONS požadavky
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     console.log('Handling preflight request for:', req.path);
@@ -32,9 +29,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routy
-
-
 const authRoutes = require('./routes/auth');
 const carRoutes = require('./routes/cars');
 const path = require('path');
@@ -44,12 +38,10 @@ app.use('/api/cars', carRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-// Test route
 app.use('/api', (req, res) => {
   res.send('API route group');
 });
 
-// WebSocket server
 const server = app.listen(port, () => {
   console.log(`Server běží na http://localhost:${port}`);
 });

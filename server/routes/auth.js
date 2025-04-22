@@ -7,7 +7,6 @@ const router = express.Router();
 const saltRounds = 10;
 const jwtSecret = process.env.JWT_SECRET;
 
-// Získání údajů o přihlášeném uživateli
 router.get('/me', (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'Missing token' });
@@ -37,7 +36,6 @@ router.get('/me', (req, res) => {
   });
 });
 
-// Register route
 router.post('/register', (req, res) => {
   const { username, email, password } = req.body;
   bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -54,10 +52,9 @@ router.post('/register', (req, res) => {
   });
 });
 
-// Login route
 router.post('/login', (req, res) => {
-  const { username, password } = req.body; // Changed from email to username
-  const query = 'SELECT * FROM users WHERE username = ?'; // Changed from email to username
+  const { username, password } = req.body;
+  const query = 'SELECT * FROM users WHERE username = ?';
   db.query(query, [username], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Error fetching user' });
@@ -79,7 +76,6 @@ router.post('/login', (req, res) => {
   });
 });
 
-// Profile route
 router.get('/profile', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   jwt.verify(token, jwtSecret, (err, decoded) => {

@@ -8,17 +8,14 @@ function ListingDetail() {
   const [car, setCar] = useState(null);
   const formatPhone = (phone) => {
     if (!phone) return '';
-    if (phone.includes(' ')) return phone; // už je formátované
+    if (phone.includes(' ')) return phone;
   
-    // Odstraníme vše krom číslic a plus
     const cleaned = phone.replace(/[^\d+]/g, '');
   
-    // Naformátuj jako +420 777 111 222
     if (cleaned.startsWith('+420') && cleaned.length === 13) {
       return `${cleaned.slice(0, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7, 10)} ${cleaned.slice(10, 13)}`;
     }
   
-    // fallback – vrať původní
     return phone;
   };
 

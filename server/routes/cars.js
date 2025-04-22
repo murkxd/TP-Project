@@ -1,5 +1,3 @@
-console.log('cars.js ROUTES loaded');
-
 const express = require('express');
 const multer = require('multer');
 const db = require('../db');
@@ -8,7 +6,6 @@ const jwt = require('jsonwebtoken');
 
 const upload = multer({ dest: 'uploads/' });
 
-// Get all listings (e.g. for homepage)
 router.get('/all', async (req, res) => {
   try {
     const {
@@ -49,7 +46,6 @@ router.get('/all', async (req, res) => {
       params.push(`%${search}%`, `%${search}%`);
     }
 
-    // Výchozí ORDER BY
     let orderBy = 'cars.created_at DESC';
     if (sort_by === 'price_asc') orderBy = 'cars.price ASC';
     if (sort_by === 'price_desc') orderBy = 'cars.price DESC';
@@ -58,7 +54,6 @@ router.get('/all', async (req, res) => {
     let featureJoin = '';
     let featureHaving = '';
 
-    // Pokud jsou specifikovány výbavy, připravíme join
     let parsedFeatures = [];
     if (features) {
       try {
@@ -116,11 +111,8 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// Create car listing
 router.post('/create', upload.array('images', 20), (req, res) => {
-  console.log('CREATE LISTING HIT!');
   try {
-    // Extract and verify JWT
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ error: 'Missing token' });
     const token = authHeader.split(' ')[1];
@@ -168,7 +160,6 @@ router.post('/create', upload.array('images', 20), (req, res) => {
 
       const carId = result.insertId;
 
-      // Vložení features do spojovací tabulky car_features
       let parsedFeatures = [];
       try {
         parsedFeatures = JSON.parse(features);
@@ -266,7 +257,6 @@ router.put('/edit/:id', upload.array('images', 20), async (req, res) => {
   db.query(updateQuery, values, (err) => {
     if (err) return res.status(500).json({ error: 'Update failed' });
 
-    // Update features (delete old, insert new)
     db.query('DELETE FROM car_features WHERE car_id = ?', [carId], () => {
       if (parsedFeatures.length > 0) {
         const featureQuery = 'SELECT id FROM features WHERE name IN (?)';
@@ -280,7 +270,6 @@ router.put('/edit/:id', upload.array('images', 20), async (req, res) => {
   });
 });
 
-// GET /api/cars/my-listings
 router.get('/my-listings', (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'Missing token' });
@@ -314,7 +303,6 @@ router.get('/my-listings', (req, res) => {
   });
 });
 
-// DELETE /api/cars/:id
 router.delete('/:id', (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'Missing token' });
@@ -342,12 +330,9 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// Detail jednoho vozu podle ID
 router.get('/details/:id', async (req, res) => {
   try {
     const carId = req.params.id;
-
-    // 1. Získáme detail auta včetně uživatele (JOIN s users)
     const [carResult] = await db.promise().query(`
       SELECT cars.*, users.username 
       FROM cars 
@@ -361,14 +346,12 @@ router.get('/details/:id', async (req, res) => {
 
     const car = carResult[0];
 
-    // 2. Zparsuj obrázky
     try {
       car.images = JSON.parse(car.images || '[]');
     } catch {
       car.images = [];
     }
 
-    // 3. Získání výbavy
     const [featureResult] = await db.promise().query(`
       SELECT f.name FROM features f
       JOIN car_features cf ON f.id = cf.feature_id

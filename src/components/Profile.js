@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Profile() {
   const [listings, setListings] = useState([]);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // pro navigaci na /listing/:id
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -69,7 +69,6 @@ function Profile() {
                 className="listing-card"
                 key={listing.id}
                 onClick={(e) => {
-                  // Zabrání kliknutí na button spustit onClick na kartě
                   if (e.target.tagName.toLowerCase() === 'button') return;
                   navigate(`/listing/${listing.id}`);
                 }}
