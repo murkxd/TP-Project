@@ -15,6 +15,10 @@ a:hover {
   color: #243b52;
 }
 
+#feature-button {
+  background-color: #d1d1d1 !important;
+}
+
 .delete-button {
   margin-top: 0.5rem;
   padding: 0.4rem 0.8rem;

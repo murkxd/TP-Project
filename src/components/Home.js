@@ -157,6 +157,7 @@ function Home() {
           <div className="dropdown-checkbox">
             <button
               type="button"
+              id="feature-button"
               onClick={() =>
                 document.getElementById('features-dropdown').classList.toggle('show')
               }
