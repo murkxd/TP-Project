@@ -9,7 +9,7 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/api/auth/register', { username, email, password });
+      await axios.post('http://localhost:3030/api/auth/register', { username, email, password }); // Ensure the correct URL
       window.location.href = '/';
     } catch (error) {
       console.error('Registration failed', error);
@@ -17,30 +17,37 @@ function Register() {
   };
 
   return (
-    <div className="auth-container">
-      <button 
-        type="button" 
-        onClick={() => window.location.href = '/' } 
-        className="back-button"
-      >
-        Back
-      </button>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label>Username:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <button type="submit" className="submit-button">Register</button>
-      </form>
-    </div>
+    <>
+      <header className="global-header">
+        <h1>Smart Bazar</h1>
+      </header>
+
+      <div className="auth-container">
+        <button 
+          type="button" 
+          onClick={() => window.location.href = '/'} 
+          className="back-button"
+        >
+          ⬅ Zpět na hlavní stránku
+        </button>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label>Username:</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" className="submit-button">Register</button>
+        </form>
+      </div>
+    </>
   );
 }
 

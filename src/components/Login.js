@@ -9,45 +9,58 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/auth/login', { username, password }); // Updated endpoint
+      const response = await axios.post('http://localhost:3030/api/auth/login', { username, password }); // Updated base URL
       localStorage.setItem('token', response.data.token);
       window.location.href = '/';
     } catch (error) {
-      console.error('Login failed', error);
+      if (error.response) {
+        alert(error.response.data.error); // Zobrazí chybu ze serveru
+      } else {
+        console.error('Login failed', error);
+        alert('Login failed. Please try again.');
+      }
     }
   };
 
   return (
-    <div className="auth-container">
-      <button 
-        type="button" 
-        onClick={() => window.location.href = '/'} 
-        className="back-button"
-      >
-        Back
-      </button>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label>Username:</label> {/* Changed from Email to Username */}
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <button type="submit" className="submit-button">Login</button>
-      </form>
-      <div className="auth-footer">
-        <span>Don't have an account? </span>
+    <>
+      <header className="global-header">
+        <h1>Smart Bazar</h1>
+      </header>
+  
+      <div className="auth-container">
         <button 
           type="button" 
-          onClick={() => window.location.href = '/register'} 
-          className="register-button"
+          onClick={() => window.location.href = '/'} 
+          className="back-button"
         >
-          Register
+          ⬅ Zpět na hlavní stránku
         </button>
+  
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label>Username:</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" className="submit-button">Login</button>
+  
+          <div className="auth-footer-inline">
+            <span>Nemáš účet?</span>
+            <button
+              type="button"
+              onClick={() => window.location.href = '/register'}
+              className="register-button small"
+            >
+              Registrovat
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 }
 
